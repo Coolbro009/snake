@@ -1,11 +1,12 @@
 <html>
 	<head>
+    		<link rel="stylesheet" type="text/css" href="Snake.Css">
 		<title> Snake Game </title>
 	</head>
   
 
 	<body>
-		<p align="center">
+		  <p align="center">
 
 			<canvas id="mycanvas"></canvas>
 		</p>
@@ -17,7 +18,7 @@
         size(500, 500);
         frameRate(0);
 
-        var gridSize = 20;
+                    var gridSize = 20;
                     var snake;
                     var newDir;
                     var timer;
@@ -28,8 +29,8 @@
                     var paused;
                     var tickSpeed;
                     var landmine;
-
-var setup = function() {
+                    
+        var setup = function() {
                       newDir = "right";
                       timer = millis();
                       tickSpeed = 50;
@@ -37,6 +38,7 @@ var setup = function() {
                       textSize(32);
                       crashed = false;
                       paused = false;
+                      blueAppleChance = random ( 0, 3 );
                       
                       apple = {
                         x: floor(random(0, width / gridSize)) * gridSize + 10,
@@ -158,9 +160,13 @@ var setup = function() {
                     };
                     
                     var drawApple = function() {
-                      fill(255, 0, 0);
-                      ellipse(apple.x, apple.y, gridSize, gridSize);
-                    
+                      if (blueAppleChance < 2) {
+                        fill(255, 0, 0);
+                        ellipse(apple.x, apple.y, gridSize, gridSize);
+                      } else {
+                        fill(0, 0, 255);
+                        ellipse(apple.x, apple.y, gridSize, gridSize);
+                      }
                     };
                     
                     var drawScore = function() {
@@ -180,10 +186,14 @@ var setup = function() {
                       }  
                     };
                     
-                    var eatApple = function() {
+                    eatApple = function() {
                       if (collision(snake, apple)) {
                         snake.tail.push({x: snake.x, y: snake.y});
-                        score++;
+                        if (blueAppleChance < 2) {
+                          score++;
+                        } else {
+                          score += 3;
+                        }
                         tickSpeed -= 0.5;
                         moveApple();
                         moveLandmines();
@@ -255,11 +265,11 @@ var setup = function() {
                         }    
                       }
                     };
+            }
         }
-        }
-        var canvas = document.getElementById("mycanvas"); 
+            var canvas = document.getElementById("mycanvas"); 
             var processingInstance = new Processing(canvas, sketchProc);
 
 		</script>
 	</body>
-</html>
+</html> 
