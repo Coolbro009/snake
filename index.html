@@ -1,14 +1,13 @@
 <html>
 	<head>
-    		<link rel="stylesheet" type="text/css" href="Snake.Css">
 		<title> Snake Game </title>
 	</head>
   
 
 	<body>
-		   <p align="center">
+		<p align="center">
 
-		   <canvas id="mycanvas"></canvas>
+			<canvas id="mycanvas"></canvas>
 		</p>
 		<script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
 
@@ -18,7 +17,7 @@
         size(500, 500);
         frameRate(0);
 
-                    var gridSize = 20;
+        var gridSize = 20;
                     var snake;
                     var newDir;
                     var timer;
@@ -29,8 +28,8 @@
                     var paused;
                     var tickSpeed;
                     var landmine;
-                    
-        var setup = function() {
+
+var setup = function() {
                       newDir = "right";
                       timer = millis();
                       tickSpeed = 50;
@@ -159,9 +158,9 @@
                     };
                     
                     var drawApple = function() {
-                        fill(0, 0, 255);
-                        ellipse(apple.x, apple.y, gridSize, gridSize);
-                      }
+                      fill(255, 0, 0);
+                      ellipse(apple.x, apple.y, gridSize, gridSize);
+                    
                     };
                     
                     var drawScore = function() {
@@ -181,11 +180,10 @@
                       }  
                     };
                     
-                    eatApple = function() {
+                    var eatApple = function() {
                       if (collision(snake, apple)) {
                         snake.tail.push({x: snake.x, y: snake.y});
-			score += 3;
-                        }
+                        score++;
                         tickSpeed -= 0.5;
                         moveApple();
                         moveLandmines();
@@ -257,9 +255,11 @@
                         }    
                       }
                     };
-            var canvas = document.getElementById("mycanvas"); 
+        }
+        }
+        var canvas = document.getElementById("mycanvas"); 
             var processingInstance = new Processing(canvas, sketchProc);
 
 		</script>
 	</body>
-</html> 
+</html>
