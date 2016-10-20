@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<title> Snake Game </title>
+		<link rel = "stylesheet" type="text/css" href="Snake.Css">
 	</head>
   
 
@@ -13,9 +14,9 @@
 
 		<script>
 			var sketchProc = function(processingInstance) {
-        with (processingInstance) {
-        size(500, 500);
-        frameRate(0);
+        		with (processingInstance) {
+        		size(500, 500);
+        		frameRate(0);
 
         var gridSize = 20;
                     var snake;
@@ -29,7 +30,7 @@
                     var tickSpeed;
                     var landmine;
 
-var setup = function() {
+	var setup = function() {
                       newDir = "right";
                       timer = millis();
                       tickSpeed = 50;
