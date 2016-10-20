@@ -6,9 +6,9 @@
   
 
 	<body>
-		  <p align="center">
+		   <p align="center">
 
-			<canvas id="mycanvas"></canvas>
+		   <canvas id="mycanvas"></canvas>
 		</p>
 		<script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
 
@@ -38,7 +38,6 @@
                       textSize(32);
                       crashed = false;
                       paused = false;
-                      blueAppleChance = random ( 0, 3 );
                       
                       apple = {
                         x: floor(random(0, width / gridSize)) * gridSize + 10,
@@ -160,10 +159,6 @@
                     };
                     
                     var drawApple = function() {
-                      if (blueAppleChance < 2) {
-                        fill(255, 0, 0);
-                        ellipse(apple.x, apple.y, gridSize, gridSize);
-                      } else {
                         fill(0, 0, 255);
                         ellipse(apple.x, apple.y, gridSize, gridSize);
                       }
@@ -189,10 +184,7 @@
                     eatApple = function() {
                       if (collision(snake, apple)) {
                         snake.tail.push({x: snake.x, y: snake.y});
-                        if (blueAppleChance < 2) {
-                          score++;
-                        } else {
-                          score += 3;
+			score += 3;
                         }
                         tickSpeed -= 0.5;
                         moveApple();
