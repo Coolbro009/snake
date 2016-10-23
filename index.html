@@ -1,47 +1,47 @@
 <html>
 	<head>
+
+    <link rel="stylesheet" type="text/css" href="Snake.Css">
 		<title> Snake Game </title>
-		<link rel = "stylesheet" type="text/css" href="Snake.Css">
 	</head>
   
 
 	<body>
-		<h2 align = "center"> Click on the game box to start, move around by pressing the keys on your keyboard.
+		  <p align = "center"> Click on the game box to start, move around by pressing the keys on your keyboard.
 
-      		<br> 
+      <br> 
 
-      		Try to eat as many red apples as you can but do not let the yellow apples fool you, 
-		(they are landmines, Shhhhhh!!!)</h2>
+      Try to eat as many red apples as you can but do not let the yellow apples fool you, (they are landmines, Shhhhhh!!!)</p>
 
-      		<br>
-     	        <br>
-		
-		<p align="center">
+      <br>
+      <br>
+
+      <p align="center">
 
 			<canvas id="mycanvas"></canvas>
 		</p>
 		<script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
 
 		<script>
-			
 			var sketchProc = function(processingInstance) {
-        		with (processingInstance) {
-        		size(500, 500);
-        		frameRate(0);
+        with (processingInstance) {
+        size(500, 500);
+        frameRate(0);
 
-        var gridSize = 20;
+                    var gridSize = 20;
                     var snake;
                     var newDir;
                     var timer;
                     var tickSpeed;
                     var apple;
+                    var blueAppleChance;
                     var score;
                     var crashed;
                     var paused;
                     var tickSpeed;
                     var landmine;
-
-	var setup = function() {
+                    
+        var setup = function() {
                       newDir = "right";
                       timer = millis();
                       tickSpeed = 50;
@@ -49,6 +49,7 @@
                       textSize(32);
                       crashed = false;
                       paused = false;
+                      blueAppleChance = random(0, 3);
                       
                       apple = {
                         x: floor(random(0, width / gridSize)) * gridSize + 10,
@@ -170,9 +171,13 @@
                     };
                     
                     var drawApple = function() {
-                      fill(255, 0, 0);
-                      ellipse(apple.x, apple.y, gridSize, gridSize);
-                    
+                      if (blueAppleChance < 2) {
+                        fill(255, 0, 0);
+                        ellipse(apple.x, apple.y, gridSize, gridSize);
+                      } else {
+                        fill(0, 0, 255);
+                        ellipse(apple.x, apple.y, gridSize, gridSize);
+                      }
                     };
                     
                     var drawScore = function() {
@@ -195,7 +200,11 @@
                     var eatApple = function() {
                       if (collision(snake, apple)) {
                         snake.tail.push({x: snake.x, y: snake.y});
-                        score++;
+                        if (blueAppleChance < 2) {
+                          score++;
+                        } else {
+                          score += 3;
+                        }
                         tickSpeed -= 0.5;
                         moveApple();
                         moveLandmines();
@@ -203,6 +212,8 @@
                     };
 
                     var moveApple = function() {
+                      blueAppleChance = random(0, 3);
+
                       apple.x = floor(random(0, width / gridSize)) * gridSize + 10;
                       apple.y = floor(random(5, height / gridSize)) * gridSize + 10;
                     
@@ -267,11 +278,11 @@
                         }    
                       }
                     };
+            }
         }
-        }
-        var canvas = document.getElementById("mycanvas"); 
+            var canvas = document.getElementById("mycanvas"); 
             var processingInstance = new Processing(canvas, sketchProc);
 
 		</script>
 	</body>
-</html>
+</html> 
